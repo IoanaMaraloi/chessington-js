@@ -14,10 +14,14 @@ export default class Pawn extends Piece {
        let result:Array<Square> = [];
        if (this.player == player.WHITE ) {
            result.push(new Square(position.row + 1, position.col));
-           // result.push(new Square(position.row + 2, position.col));
+           if (position.row == 1) {
+               result.push(new Square(position.row + 2, position.col));
+           }
        }else{
            result.push(new Square(position.row - 1, position.col));
-           // result.push(new Square(position.row + 2, position.col));
+           if (position.row == 6) {
+               result.push(new Square(position.row - 2, position.col));
+           }
        }
         return result;
     }

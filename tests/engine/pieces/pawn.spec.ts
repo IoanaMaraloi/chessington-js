@@ -3,13 +3,14 @@ import Pawn from '../../../src/engine/pieces/pawn';
 import Board from '../../../src/engine/board';
 import Player from '../../../src/engine/player';
 import Square from '../../../src/engine/square';
+import player from "../../../src/engine/player";
 
 describe('Pawn', () => {
 
     describe('white pawns', () => {
 
         let board : Board;
-        beforeEach(() => board = new Board());
+        beforeEach(() => board = new Board(player.WHITE));
 
         it('can only move one square up if they have already moved', () => {
             const pawn = new Pawn(Player.WHITE);
@@ -36,7 +37,7 @@ describe('Pawn', () => {
 
     describe('black pawns', () => {
 
-        let board;
+        let board :Board;
         beforeEach(() => board = new Board(Player.BLACK));
 
         it('can only move one square down if they have already moved', () => {
