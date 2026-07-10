@@ -3,7 +3,6 @@ import Player from '../player';
 import Board from '../board';
 import Square from "../square";
 import player from "../player";
-import gameSettings from "../gameSettings";
 
 export default class Pawn extends Piece {
     public constructor(player: Player) {
@@ -24,6 +23,24 @@ export default class Pawn extends Piece {
                result.push(new Square(position.row - 2, position.col));
            }
        }
-        return result;
+       if (result.length == 1){
+           if (board.getPiece(result[0]) === undefined){
+               return result;
+           }
+       }else{
+           let finalResult:Array<Square> = [];
+           if (board.getPiece(result[0]) === undefined){
+               finalResult.push(result[0]);
+           }else{
+               return [];
+           }
+           if (board.getPiece(result[1]) === undefined){
+               finalResult.push(result[1]);
+               return finalResult;
+           }
+       }
+       return [];
+
+
     }
 }
