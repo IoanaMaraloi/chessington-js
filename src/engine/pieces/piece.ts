@@ -24,6 +24,9 @@ export default class Piece {
         let col = position.col + 1;
         let result: Array<Square> = [];
         while(row < gameSettings.BOARD_SIZE && col < gameSettings.BOARD_SIZE) {
+            if (board.getPiece(new Square(row, col)) !== undefined) {
+                break;
+            }
             result.push(new Square(row, col));
             row++;
             col++
@@ -31,6 +34,9 @@ export default class Piece {
         row = position.row + 1;
         col = position.col - 1;
         while(row < gameSettings.BOARD_SIZE && col >= 0) {
+            if (board.getPiece(new Square(row, col)) !== undefined) {
+                break;
+            }
             result.push(new Square(row, col));
             row++;
             col--
@@ -38,6 +44,9 @@ export default class Piece {
         row = position.row - 1;
         col = position.col + 1;
         while(row >= 0 && col < gameSettings.BOARD_SIZE) {
+            if (board.getPiece(new Square(row, col)) !== undefined) {
+                break;
+            }
             result.push(new Square(row, col));
             row--;
             col++
@@ -45,6 +54,9 @@ export default class Piece {
         row = position.row - 1;
         col = position.col - 1;
         while(row >= 0 && col >= 0) {
+            if (board.getPiece(new Square(row, col)) !== undefined) {
+                break;
+            }
             result.push(new Square(row, col));
             row--;
             col--
@@ -78,7 +90,7 @@ export default class Piece {
             }
             result.push(new Square(position.row, i));
         }
-        // move dowm
+        // move down
         for(let i = col - 1; i >= 0; i--) {
             if(board.getPiece(new Square(row, i)) !== undefined) {
                 break;
