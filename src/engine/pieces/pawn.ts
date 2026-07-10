@@ -3,6 +3,7 @@ import Player from '../player';
 import Board from '../board';
 import Square from "../square";
 import player from "../player";
+import gameSettings from "../gameSettings";
 
 export default class Pawn extends Piece {
     public constructor(player: Player) {
