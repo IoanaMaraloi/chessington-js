@@ -57,15 +57,31 @@ export default class Piece {
         let position : Square = board.findPiece(this);
         let row: number = position.row;
         let col: number = position.col;
-        for(let i = 0; i < gameSettings.BOARD_SIZE; i++) {
-            if(i == row){
-                continue;
+        // move right
+        for(let i = row + 1; i < gameSettings.BOARD_SIZE; i++) {
+            if(board.getPiece(new Square(i, col)) !== undefined) {
+                break;
             }
             result.push(new Square(i, position.col));
         }
-        for(let i = 0; i < gameSettings.BOARD_SIZE; i++) {
-            if(i == col){
-                continue;
+        // move left
+        for(let i = row - 1; i >= 0; i--) {
+            if(board.getPiece(new Square(i, col)) !== undefined) {
+                break;
+            }
+            result.push(new Square(i, position.col));
+        }
+        // move up
+        for(let i = col + 1; i < gameSettings.BOARD_SIZE; i++) {
+            if(board.getPiece(new Square(row, i)) !== undefined) {
+                break;
+            }
+            result.push(new Square(position.row, i));
+        }
+        // move dowm
+        for(let i = col - 1; i >= 0; i--) {
+            if(board.getPiece(new Square(row, i)) !== undefined) {
+                break;
             }
             result.push(new Square(position.row, i));
         }
