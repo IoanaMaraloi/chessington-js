@@ -3,11 +3,12 @@ import Bishop from '../../../src/engine/pieces/bishop';
 import Player from '../../../src/engine/player';
 import Square from '../../../src/engine/square';
 import Board from '../../../src/engine/board';
+import player from "../../../src/engine/player";
 
 describe('Bishop', () => {
 
-    let board;
-    beforeEach(() => board = new Board());
+    let board : Board;
+    beforeEach(() => board = new Board(player.WHITE));
 
     it('can move diagonally', () => {
         const bishop = new Bishop(Player.WHITE);
