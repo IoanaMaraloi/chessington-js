@@ -18,6 +18,12 @@ export default class Piece {
         const currentSquare = board.findPiece(this);
         board.movePiece(currentSquare, newSquare);
     }
+    public checkInBoard(row:number, col:number) {
+        if (row >= 0 && col >= 0 && row < gameSettings.BOARD_SIZE && col < gameSettings.BOARD_SIZE) {
+            return true;
+        }
+        return false;
+    }
     public moveDiagonally(board : Board) {
         let position = board.findPiece(this);
         let row = position.row + 1;

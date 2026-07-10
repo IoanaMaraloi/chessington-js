@@ -11,35 +11,25 @@ export default class Pawn extends Piece {
 
     public getAvailableMoves(board: Board) {
        let position : Square = board.findPiece(this);
+       let row = position.row;
+       let col = position.col;
        let result:Array<Square> = [];
        if (this.player == player.WHITE ) {
-           result.push(new Square(position.row + 1, position.col));
-           if (position.row == 1) {
-               result.push(new Square(position.row + 2, position.col));
+           if (super.checkInBoard(row + 1, col) && board.getPiece(new Square(row + 1, col)) === undefined && row + 1 < 8 ) {
+               result.push(new Square(position.row + 1, position.col));
+               if (row == 1 &&super.checkInBoard(row + 2, col) && board.getPiece(new Square(position.row + 2, position.col)) === undefined && row + 2 < 8 ) {
+                   result.push(new Square(position.row + 2, position.col));
+               }
            }
        }else{
-           result.push(new Square(position.row - 1, position.col));
-           if (position.row == 6) {
-               result.push(new Square(position.row - 2, position.col));
+           if (super.checkInBoard(row - 1, col) && board.getPiece(new Square(row - 1, col)) === undefined && row > 1) {
+               result.push(new Square(position.row - 1, position.col));
+               if (row == 6 &&super.checkInBoard(row - 2, col) && board.getPiece(new Square(position.row - 2, position.col)) === undefined && row > 2) {
+                   result.push(new Square(position.row - 2, position.col));
+               }
            }
        }
-       if (result.length == 1){
-           if (board.getPiece(result[0]) === undefined){
-               return result;
-           }
-       }else{
-           let finalResult:Array<Square> = [];
-           if (board.getPiece(result[0]) === undefined){
-               finalResult.push(result[0]);
-           }else{
-               return [];
-           }
-           if (board.getPiece(result[1]) === undefined){
-               finalResult.push(result[1]);
-               return finalResult;
-           }
-       }
-       return [];
+      return result;
 
 
     }
