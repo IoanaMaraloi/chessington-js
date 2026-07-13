@@ -2,7 +2,6 @@ import Piece from './piece';
 import Player from '../player';
 import Board from '../board';
 import Square from "../square";
-import gameSettings from "../gameSettings";
 
 export default class Rook extends Piece {
     public constructor(player: Player) {
@@ -10,6 +9,7 @@ export default class Rook extends Piece {
     }
 
     public getAvailableMoves(board: Board) {
-        return super.moveLaterally(board);
+        let moves :Array<Square> = super.moveLaterally(board);
+        return moves;
     }
 }

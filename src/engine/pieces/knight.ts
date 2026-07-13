@@ -16,7 +16,7 @@ export default class Knight extends Piece {
         let potentialRow = position.row;
         let potentialCol = position.col;
         for (let i = 0; i < move.length; i++) {
-            for(let j = 0; j < move.length; j++) {
+            for (let j = 0; j < move.length; j++) {
                 if (Math.abs(move[i]) == Math.abs(move[j])){
                     continue;
                 }

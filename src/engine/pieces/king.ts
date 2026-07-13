@@ -2,10 +2,8 @@ import Piece from './piece';
 import Player from '../player';
 import Board from '../board';
 import Square from "../square";
-import GameSettings from "../gameSettings";
-import gameSettings from "../gameSettings";
-
 export default class King extends Piece {
+    public canBeTaken = false;
     public constructor(player: Player) {
         super(player);
     }
@@ -13,8 +11,8 @@ export default class King extends Piece {
         let result : Array<Square> = [];
         let positions = board.findPiece(this);
 
-        let row =positions.row;
-        let col =positions.col;
+        let row = positions.row;
+        let col = positions.col;
         let moves: Array<number> = [-1, 0, 1];
         for (let moveRows of moves){
             for (let moveCols of moves){
