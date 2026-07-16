@@ -20,7 +20,17 @@ export default class King extends Piece {
                     continue;
                 }
                 if (super.checkInBoard(row + moveRows, col + moveCols)){
-                    result.push(new Square(moveRows + row, col + moveCols));
+                    let piece = board.getPiece(new Square(row + moveRows, col + moveCols));
+                    if (super.emptyPiece(piece)){
+                        result.push(new Square(row + moveRows, col + moveCols));
+                    }else {
+                        if (piece?.player != this.player) {
+                            if (!piece?.canBeTaken) {
+                                return result;
+                            }
+                            result.push(new Square(row + moveRows, col + moveCols));
+                        }
+                    }
                 }
             }
         }
