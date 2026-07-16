@@ -21,109 +21,42 @@ export default class Piece {
     public emptyPiece(piece : Piece | undefined): boolean {
         return piece === undefined;
     }
+    public checkLineDirection(board: Board, direction:Square) {
+        let partialResult : Square[] = [];
+        let position : Square = board.findPiece(this);
+        position.row =  position.row + direction.row;
+        position.col = position.col + direction.col;
+            while (position.row >= 0 && position.row < gameSettings.BOARD_SIZE &&
+                position.col >= 0 && position.col < gameSettings.BOARD_SIZE) {
+                let piece = board.getPiece(new Square(position.row, position.col));
+                if (this.emptyPiece(piece)) {
+                    partialResult.push(new Square(position.row, position.col));
+                }else{
+                    if (piece?.player != this.player) {
+                        if (!piece?.canBeTaken){
+                            return partialResult;
+                        }
+                        partialResult.push(new Square(position.row, position.col));
+                    }
+                    return partialResult;
+                }
+                position.row =  position.row + direction.row;
+                position.col = position.col + direction.col;
+            }
+        return partialResult;
+    }
 
     public moveDiagonally(board : Board) {
-        let position = board.findPiece(this);
-        let row = position.row + 1;
-        let col = position.col + 1;
-        let result: Array<Square> = [];
-        while(row < gameSettings.BOARD_SIZE && col < gameSettings.BOARD_SIZE) {
-            if (board.getPiece(new Square(row, col)) !== undefined) {
-                break;
-            }
-            result.push(new Square(row, col));
-            row++;
-            col++
-        }
-        row = position.row + 1;
-        col = position.col - 1;
-        while(row < gameSettings.BOARD_SIZE && col >= 0) {
-            if (board.getPiece(new Square(row, col)) !== undefined) {
-                break;
-            }
-            result.push(new Square(row, col));
-            row++;
-            col--
-        }
-        row = position.row - 1;
-        col = position.col + 1;
-        while(row >= 0 && col < gameSettings.BOARD_SIZE) {
-            if (board.getPiece(new Square(row, col)) !== undefined) {
-                break;
-            }
-            result.push(new Square(row, col));
-            row--;
-            col++
-        }
-        row = position.row - 1;
-        col = position.col - 1;
-        while(row >= 0 && col >= 0) {
-            if (board.getPiece(new Square(row, col)) !== undefined) {
-                break;
-            }
-            result.push(new Square(row, col));
-            row--;
-            col--
-        }
-        return result;
+        return [...this.checkLineDirection(board, new Square(1, 1)),
+            ...this.checkLineDirection(board, new Square(1, -1) ),
+            ...this.checkLineDirection(board, new Square(-1, 1)),
+            ...this.checkLineDirection(board, new Square(-1, -1) )];
     }
     public moveLaterally(board: Board) {
-        let result : Square[] = [];
-        let position : Square = board.findPiece(this);
-        // move up
-        for(let i = position.row + 1; i < gameSettings.BOARD_SIZE; i++) {
-            let piece = board.getPiece(new Square(i, position.col));
-            if (this.emptyPiece(piece)) {
-                result.push(new Square(i, position.col));
-            }else{
-                if (piece?.player != this.player) {
-                    result.push(new Square(i, position.col));
-                }
-                break;
-            }
-        }
-        // move down
-        for(let i = position.row - 1; i >= 0; i--) {
-            let piece = board.getPiece(new Square(i, position.col));
-            if (this.emptyPiece(piece)) {
-                result.push(new Square(i, position.col));
-            }else{
-                if (piece?.player != this.player) {
-                    if (!piece?.canBeTaken){
-                        break;
-                    }
-                    result.push(new Square(i, position.col));
-                }
-                break;
-            }
-        }
-        // move right
-        for(let i = position.col + 1; i < gameSettings.BOARD_SIZE; i++) {
-            let piece = board.getPiece(new Square(position.row, i));
-            if (this.emptyPiece(piece)) {
-                result.push(new Square(position.row, i));
-            }else{
-                if (piece?.player != this.player) {
-                    if (!piece?.canBeTaken){
-                        break;
-                    }
-                    result.push(new Square(position.row, i));
-                }
-                break;
-            }
-        }
-        // move left
-        for(let i = position.col - 1; i >= 0; i--) {
-            let piece = board.getPiece(new Square(position.row, i));
-            if (this.emptyPiece(piece)) {
-                result.push(new Square(position.row, i));
-            }else{
-                if (piece?.player != this.player) {
-                    result.push(new Square(position.row, i));
-                }
-                break;
-            }
-        }
-        return result;
+        return [...this.checkLineDirection(board, new Square(0, 1)),
+            ...this.checkLineDirection(board, new Square(0, -1) ),
+            ...this.checkLineDirection(board, new Square(1, 0)),
+            ...this.checkLineDirection(board, new Square(-1, 0) )];
+
     }
 }
