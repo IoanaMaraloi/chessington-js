@@ -3,6 +3,7 @@ import Board from '../../src/engine/board';
 import Pawn from '../../src/engine/pieces/pawn';
 import Player from '../../src/engine/player';
 import Square from '../../src/engine/square';
+import player from "../../src/engine/player";
 
 describe('Board', () => {
 
@@ -10,7 +11,7 @@ describe('Board', () => {
 
         let board : Board;
         beforeEach(() => { // Common code executed before each test.
-            board = new Board();
+            board = new Board(player.BLACK);
         });
 
         it('can be added to the board', () => {

@@ -1,6 +1,8 @@
 import Piece from './piece';
 import Player from '../player';
 import Board from '../board';
+import Square from "../square";
+import gameSettings from "../gameSettings";
 
 export default class Bishop extends Piece {
     public constructor(player: Player) {
@@ -8,6 +10,7 @@ export default class Bishop extends Piece {
     }
 
     public getAvailableMoves(board: Board) {
-        return new Array(0);
+        let position : Square = board.findPiece(this);
+        return super.moveDiagonally(board);
     }
 }
