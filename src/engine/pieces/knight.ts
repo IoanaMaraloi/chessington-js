@@ -22,8 +22,19 @@ export default class Knight extends Piece {
                 }
                  potentialRow = position.row + move[i];
                  potentialCol = position.col + move[j];
-                 if (potentialRow >= 0 && potentialCol >= 0 && potentialRow < gameSettings.BOARD_SIZE && potentialCol < gameSettings.BOARD_SIZE) {
-                     result.push(new Square(potentialRow, potentialCol));
+                 if(this.checkInBoard(potentialRow, potentialCol)){
+                     let piece = board.getPiece(new Square(potentialRow, potentialCol));
+                     if (super.emptyPiece(piece)) {
+                         result.push(new Square(potentialRow, potentialCol));
+                     }else{
+                         if (piece?.player !== this.player) {
+                             if (!piece?.canBeTaken){
+                                 return result;
+                             }
+                             result.push(new Square(potentialRow, potentialCol));
+                         }
+                         return result;
+                     }
                  }
             }
         }

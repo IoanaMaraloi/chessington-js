@@ -26,8 +26,7 @@ export default class Piece {
         let position : Square = board.findPiece(this);
         position.row =  position.row + direction.row;
         position.col = position.col + direction.col;
-            while (position.row >= 0 && position.row < gameSettings.BOARD_SIZE &&
-                position.col >= 0 && position.col < gameSettings.BOARD_SIZE) {
+            while (this.checkInBoard(position.row, position.col)) {
                 let piece = board.getPiece(new Square(position.row, position.col));
                 if (this.emptyPiece(piece)) {
                     partialResult.push(new Square(position.row, position.col));
