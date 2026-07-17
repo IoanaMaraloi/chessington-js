@@ -22,18 +22,17 @@ export default class Knight extends Piece {
                 }
                  potentialRow = position.row + move[i];
                  potentialCol = position.col + move[j];
+                 console.log(potentialRow, potentialCol);
                  if(this.checkInBoard(potentialRow, potentialCol)){
                      let piece = board.getPiece(new Square(potentialRow, potentialCol));
                      if (super.emptyPiece(piece)) {
                          result.push(new Square(potentialRow, potentialCol));
                      }else{
                          if (piece?.player !== this.player) {
-                             if (!piece?.canBeTaken){
-                                 return result;
+                             if (piece?.canBeTaken){
+                                 result.push(new Square(potentialRow, potentialCol));
                              }
-                             result.push(new Square(potentialRow, potentialCol));
                          }
-                         return result;
                      }
                  }
             }
